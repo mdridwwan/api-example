@@ -1,0 +1,11 @@
+#countreis {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+}
+
+.countery {
+    border: 2px solid salmon;
+    padding: 20px;
+    margin: 10px;
+    border-radius: 10px;
+}
