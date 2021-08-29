@@ -8,27 +8,40 @@ const searchbtn = () => {
     fetch(url)
         .then(res => res.json())
         .then(data => displaySearch(data.meals))
+
 }
 
 const displaySearch = data => {
     console.log(data)
+    const notResul = document.getElementById('not-result');
+    notResul.textContent = '';
     const searchResult = document.getElementById('search-result');
     searchResult.textContent = '';
-    data.forEach(meal => {
-        console.log(meal.idMeal);
-        const div = document.createElement('div');
-        div.classList.add('col');
-        div.innerHTML = `
-            <div onclick="mealDetails(${meal.idMeal})" class="card h-100">
-            <img   src="${meal.strMealThumb}" class="card-img-top " alt="...">
-            <div class="card-body">
-              <h5 class="card-title">${meal.strMeal}</h5>
-              <p class="card-text">${meal.strInstructions.slice(0, 400)}</p>
-            </div>
-          </div>
-            `
-        searchResult.appendChild(div);
-    })
+    if (data == null) {
+        console.log('nai')
+        const h1 = document.createElement('h1');
+        h1.classList.add('stylw')
+        h1.innerText = 'Not Found.. ! Please Try again...';
+        notResul.appendChild(h1);
+    } else {
+        data.forEach(meal => {
+            console.log(meal.idMeal);
+            const div = document.createElement('div');
+            div.classList.add('col');
+            div.innerHTML = `
+                <div onclick="mealDetails(${meal.idMeal})" class="card h-100">
+                <img   src="${meal.strMealThumb}" class="card-img-top " alt="...">
+                <div class="card-body">
+                <h5 class="card-title">${meal.strMeal}</h5>
+                <p class="card-text">${meal.strInstructions.slice(0, 400)}</p>
+                </div>
+                </div>
+                `
+            searchResult.appendChild(div);
+        })
+
+    }
+
 }
 
 const mealDetails = async mealId => {
